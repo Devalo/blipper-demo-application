@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom';
 import { getAllUsers } from '../../lib/reducers/usersReducer';
 import placeholderImg from '../../static/profile-placeholder-img.png';
 import fire from '../../config/fire';
+import { IUser } from '../../types/types';
 
 const ListUsers = () => {
   const dispatch = useDispatch();
-  const users = useSelector((state: any) => state.users);
+  const users: Array<IUser> = useSelector((state: any) => state.users);
   const { currentUser } = fire.auth();
 
   useEffect(() => {

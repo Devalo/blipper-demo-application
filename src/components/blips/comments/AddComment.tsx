@@ -2,25 +2,20 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { createComment } from '../../../lib/reducers/blipReducer';
+import { IUser } from '../../../types/types';
 
 interface Props {
   blipId: string;
-  user: {
-    id: string;
-    photoUrl: string;
-    email: string;
-    displayName: string;
-    blips: Array<string>;
-  };
+  user: IUser;
 }
 
 const AddComment = (props: Props) => {
   const dispatch = useDispatch();
   const {
-    register, handleSubmit, errors, reset,
+    register, handleSubmit, reset,
   } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: { comment: string;}) => {
     dispatch(createComment(props.blipId, {
       comment: data.comment,
       uid: props.user.id,

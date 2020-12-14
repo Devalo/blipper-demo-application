@@ -3,13 +3,19 @@ import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import fire from '../../config/fire';
 
+interface IRegister {
+  email: string;
+  password: string;
+  displayName: string;
+}
+
 const Register = () => {
   const [error, setError] = useState('');
   const {
     register, handleSubmit, errors, reset,
   } = useForm();
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: IRegister) => {
     try {
       const userObject = await fire.auth()
         .createUserWithEmailAndPassword(data.email, data.password);
@@ -17,6 +23,7 @@ const Register = () => {
         email: userObject?.user?.email,
         displayName: data.displayName,
         photoURL: '',
+        blips: [],
       };
       await fire
         .firestore()

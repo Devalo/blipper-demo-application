@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface Props {
-  comments: any,
+  comments: any;
 }
 
 const ShowComments = (props: Props) => {
@@ -16,6 +16,8 @@ const ShowComments = (props: Props) => {
     const value = comments[key];
     iterableComments.push({ key, value });
   }
+
+  iterableComments.sort((a, b) => a.value.createdAt - b.value.createdAt);
   return (
     <div className="comments">
       {iterableComments.map((comment) => (

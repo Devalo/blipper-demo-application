@@ -3,13 +3,18 @@ import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import fire from '../../config/fire';
 
+interface ILogin {
+  email: string;
+  password: string;
+}
+
 const Login = () => {
   const [noUser, setNoUser] = useState('');
   const {
     register, handleSubmit, errors, reset,
   } = useForm();
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: ILogin) => {
     try {
       await fire.auth().signInWithEmailAndPassword(data.email, data.password);
     } catch (err) {

@@ -9,16 +9,17 @@ import 'dayjs/locale/nb';
 import fire from '../../config/fire';
 import placeholderImg from '../../static/profile-placeholder-img.png';
 import BlipForm from '../blips/BlipForm';
+import { IBlips, IUser } from '../../types/types';
 
 const Profile = () => {
   dayjs.locale('nb');
   dayjs.extend(relativeTime);
   const dispatch = useDispatch();
   const user: any = fire.auth().currentUser;
-  const userBlips: any = useSelector((state: any) => {
-    return state.blips.filter((u) => u.user.uid === user.uid);
+  const userBlips: Array<IBlips> = useSelector((state: any) => {
+    return state.blips.filter((u: any) => u.user.uid === user.uid);
   });
-  const myProfile = useSelector((state:any) => state.profile);
+  const myProfile: IUser = useSelector((state:any) => state.profile);
 
   useEffect(() => {
     dispatch(getMyProfile(user.uid));

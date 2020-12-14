@@ -12,6 +12,7 @@ import fire from '../../config/fire';
 import AddComment from './comments/AddComment';
 import { getAllUsers } from '../../lib/reducers/usersReducer';
 import ShowComments from './comments/ShowComments';
+import { IUser, IBlips } from '../../types/types';
 
 interface Props {
 
@@ -21,11 +22,12 @@ dayjs.extend(relativeTime);
 
 const BlipFeed = (props: Props) => {
   const dispatch = useDispatch();
-  const blips = useSelector((state: any) => state.blips);
+  const blips: Array<IBlips> = useSelector((state: any) => state.blips);
   const { currentUser } = fire.auth();
-  const user: any = useSelector((state: any) => {
-    return state.users.find((u) => u.id === currentUser?.uid);
+  const user: IUser = useSelector((state: any) => {
+    return state.users.find((u: IUser) => u.id === currentUser?.uid);
   });
+  console.log(blips);
 
   useEffect(() => {
     dispatch(initializeBlips());
@@ -45,7 +47,7 @@ const BlipFeed = (props: Props) => {
             <h2>Veggen  </h2>
           </div>
           <div className="feed mt-3">
-            {blips.map((blip) => (
+            {blips.map((blip: IBlips) => (
               <div className="feedItem" key={blip.id}>
                 <div className="row">
                   <div className="col-md-2">

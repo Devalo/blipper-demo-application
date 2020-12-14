@@ -6,16 +6,17 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import placeholderImg from '../../static/profile-placeholder-img.png';
 import { getAllUsers } from '../../lib/reducers/usersReducer';
 import { getUserBlips } from '../../lib/reducers/blipReducer';
+import { IUser, IBlips } from '../../types/types';
 
 const ShowUser = () => {
   dayjs.locale('nb');
   dayjs.extend(relativeTime);
   const params: { id: string; } = useParams();
   const dispatch = useDispatch();
-  const user: any = useSelector((state: any) => {
+  const user: IUser = useSelector((state: any) => {
     return state.users.find((u) => u.id === params.id);
   });
-  const userBlips: any = useSelector((state: any) => {
+  const userBlips: Array<IBlips> = useSelector((state: any) => {
     return state.blips.filter((u) => u.user.uid === params.id);
   });
 
